@@ -1,6 +1,6 @@
 <?php
 
-$response_type = "xml";
+$response_type = "json";
 /**
  * Connect to the database
  * 
@@ -87,12 +87,15 @@ function array2xml($array, $xml=false)
 
 
 
-if(!$response_type == "xml")
+if($response_type != "xml")
 {
     header("Content-Type: application/json");
     echo json_encode(data(conn()));
 }
-header('Content-Type: text/xml');
-$data = data(conn());
-$xml = array2xml($data, false);
-print_r($xml);
+else
+{
+    header('Content-Type: text/xml');
+    $data = data(conn());
+    $xml = array2xml($data, false);
+    print_r($xml);
+}
