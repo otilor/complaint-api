@@ -1,22 +1,9 @@
 <?php
-
+include ('config/db_connect.php');
 $response_type = "json";
-/**
- * Connect to the database
- * 
- * @var  $conn
- * @return $conn
- */
 
- function conn()
- {
-    $conn = mysqli_connect("localhost", "gabriel", "Portedjester_20", "complaint_api");
-    if (!$conn)
-    {
-        return null;
-    }
-    return $conn;
- }
+
+ 
 /**
  * data function
  */
@@ -90,7 +77,8 @@ function array2xml($array, $xml=false)
 if($response_type != "xml")
 {
     header("Content-Type: application/json");
-    echo json_encode(data(conn()));
+    $data= data(conn());
+    echo json_encode($data);
 }
 else
 {
