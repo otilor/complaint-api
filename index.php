@@ -1,11 +1,19 @@
 <?php
 include ('config/db_connect.php');
-$response_type = "json";
+// $response_type = "json";
+$response_type = strtolower($_GET["response_type"]);
+
 
 
  
 /**
  * data function
+ * 
+ * @var $fetch_sql
+ * @var $fetch_query
+ * @var $fetch_result
+ * @var $total_complaints
+ * @return array $data | string "Failed"
  */
 function data($conn)
 {
@@ -61,6 +69,13 @@ function data($conn)
     
 }
 
+/**
+ * Convert Array to XML
+ * 
+ * @param  array $array
+ * @param bool $xml
+ * @return string $xml
+ */
 function array2xml($array, $xml=false)
 {
     if ($xml === false)
@@ -82,7 +97,7 @@ function array2xml($array, $xml=false)
 }
 
 
-
+// Checks for the specified respone type
 if($response_type != "xml")
 {
     header("Content-Type: application/json");
