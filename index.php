@@ -98,16 +98,21 @@ function array2xml($array, $xml=false)
 
 
 // Checks for the specified respone type
-if($response_type != "xml")
+if($response_type == "json")
 {
     header("Content-Type: application/json");
     $data= data(conn());
     echo json_encode($data);
 }
-else
+elseif ($response_type == "xml")
 {
     header('Content-Type: text/xml');
     $data = data(conn());
     $xml = array2xml($data, false);
     print_r($xml);
+}
+
+else {
+    //header($_SERVER["SERVER_PROTOCOL"]. "500 Internal server error");
+    http_response_code(400);
 }
