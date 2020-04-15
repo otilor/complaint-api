@@ -9,14 +9,22 @@ $response_type = "json";
  */
 function data($conn)
 {
+    // Test to the database
     $conn = conn($conn);
+    // SQL to fetch all the complaints in the database
     $fetch_sql = "SELECT * FROM complaints";
+    // Query the database
     $fetch_query = mysqli_query($conn, $fetch_sql);
+    // Resolve the result into an Associative Array
     $fetch_result = mysqli_fetch_all($fetch_query, MYSQLI_ASSOC);
+    // Complaints that have been accepted
     $accepted_complaints = [];
+    // All the complaints
     $total_complaints = count($fetch_result);
+    // Messages
     $messages = [];
 
+    // Filter Accepted Messages into an array
     foreach ($fetch_result as $result)
     {
         if ($result["accepted?"] == 1)
@@ -25,6 +33,7 @@ function data($conn)
         }
     }
 
+    // All the messages go here
     foreach ($fetch_result as $message)
     {
         array_push ($messages, $message["message"]);
